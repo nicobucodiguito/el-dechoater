@@ -22,7 +22,6 @@ $main_form.AutoSize = $true
 
 
 # Buttons
-
 $disableDefenderButton = New-Object System.Windows.Forms.Button
 $disableDefenderButton.Text = "Disable Windows Defender"
 $disableDefenderButton.Location  = New-Object System.Drawing.Point(270, 20)
@@ -55,13 +54,16 @@ $enableExplorerWebSearchButton.Add_Click({
     enableExplorerWebSearch
 })
 
-# GUI adding & drawing
 
+# Icon
+$formIcon = New-Object system.drawing.icon(get-item '.\favicon.ico')
+$main_form.Icon = $formIcon
+
+
+# GUI adding & drawing
 $main_form.Controls.Add($disableDefenderButton)
 $main_form.Controls.Add($enableDefenderButton)
 $main_form.Controls.Add($disableExplorerWebSearchButton)
 $main_form.Controls.Add($enableExplorerWebSearchButton)
 $main_form.Controls.Add($pictureBox)
 $main_form.ShowDialog()
-
-Write-Host($main_form.Width, $main_form.Height)

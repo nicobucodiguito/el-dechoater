@@ -1,8 +1,10 @@
-function errorMessage { # Print on console the error in case there is one
+ # Print on console the error in case there is one
+function errorMessage {
     Write-Host "Una poronga este script, no anda nada, el error es:`n $error" -ForegroundColor Red
 }
 
-function successPopup {
+ # Show a success window popup in case nothing goes wrong
+function successPopup { 
     $NewForm = New-Object Windows.Forms.Form
     $NewForm.Size = New-Object Drawing.Size @(400,100)
     $NewForm.StartPosition = "CenterScreen"
@@ -14,6 +16,7 @@ function successPopup {
     $NewForm.ShowDialog()
 }
 
+# Show an error window pop up in case something goes wrong
 function errorPopup {
     $NewForm = New-Object Windows.Forms.Form
     $NewForm.Size = New-Object Drawing.Size @(500,200)
@@ -43,8 +46,8 @@ function disableDefender { # Disable Windows Defender through a registry key
 function enableDefender { # Delete the registry key previously created
     Try {
         Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -ErrorAction Stop
-        successPopup
         # ErrorAction Stop makes Non-terminating errors trigger the catch condition
+        successPopup
     }
     Catch {
         errorMessage
@@ -54,7 +57,6 @@ function enableDefender { # Delete the registry key previously created
 }
 
 # Start Menu Web Search
-
 function disableExplorerWebSearch { # Disable Bing web search on Start Menu through registry keys, if Registry Keys exist, change their values so web search is disabled
     Try {
         New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Value 0 -PropertyType "DWord" -ErrorAction Stop # For W10 ver.1909 or older
